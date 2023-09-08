@@ -1,4 +1,4 @@
-import { Grid, CardMedia, Box, Card, CardActions, IconButton, Alert, Snackbar, Tooltip, CardHeader, CardContent } from '@mui/material'
+import { Grid, CardMedia, Box, Card, CardActions, IconButton, Alert, Snackbar, Tooltip, CardContent } from '@mui/material'
 import { MdOutlineFavoriteBorder, MdShare } from "react-icons/md"
 import { IoTrashSharp } from "react-icons/io5"
 import { useDispatch, useSelector } from "react-redux"
