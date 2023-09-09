@@ -118,7 +118,7 @@ export default function FloatingActionButton() {
             <Fab
                 color="primary"
                 aria-label="fab_btn"
-                sx={{ position: 'fixed', bottom: 70, right: 20, zIndex: 1000000 }}
+                sx={{ position: 'fixed', bottom: 70, right: 40, zIndex: 1000000 }}
                 onClick={handleClickOpen}
             >
                 <IoMdAdd style={{ fontSize: 25 }} />
