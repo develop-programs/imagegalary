@@ -1,4 +1,4 @@
-import { Grid, CardMedia, Box, Card, CardActions, IconButton, Alert, Snackbar, Tooltip, CardContent } from '@mui/material'
+import { Grid, CardMedia, Box, Card, CardActions, IconButton, Alert, Snackbar, Tooltip, CardContent, Typography } from '@mui/material'
 import { MdOutlineFavoriteBorder, MdShare } from "react-icons/md"
 import { IoTrashSharp } from "react-icons/io5"
 import { useDispatch, useSelector } from "react-redux"
@@ -9,6 +9,7 @@ import { fetchProduct } from '../../services/Redux/Reducers/Photos'
 import { AppDispatch } from '../../services/Redux/Store'
 import { ref, deleteObject } from "firebase/storage";
 import { StorageRef } from '../../services/Firebase/firebase'
+import moment from 'moment'
 
 interface DataTypes {
     _id: string,
@@ -29,7 +30,6 @@ export default function CardItems() {
     const [InfoOpen, setInfo] = React.useState<boolean>(false)
 
     const DeleteFile = (params: DataTypes) => {
-        console.log(params);
         const desertRef = ref(StorageRef, `images/${params.Image}`);
         deleteObject(desertRef).then(async () => {
             axios.delete(`${import.meta.env.VITE_API_URL}/images/delete/${params._id}`).then(() => {
@@ -56,8 +56,13 @@ export default function CardItems() {
                         <Box>
                             <Card sx={{ maxWidth: 450 }} elevation={5}>
                                 <CardMedia component="img" src={itm.URL} width={100} height={230} loading='lazy' />
-                                <CardContent>
-                                    Uploded By : {itm.Author}
+                                <CardContent sx={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap" }}>
+                                    <Typography variant="body1" color="inherit" component="div">
+                                        by: {itm.Author}
+                                    </Typography>
+                                    <Typography variant="body1" color="inherit" component="div">
+                                        {moment(itm.createdAt).format("D:MM:yyyy hh:mm a")}
+                                    </Typography>
                                 </CardContent>
                                 <CardActions sx={{ display: "flex", justifyContent: 'space-between' }}>
                                     <Box>

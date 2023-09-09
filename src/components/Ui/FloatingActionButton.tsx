@@ -1,4 +1,4 @@
-import { Box, Dialog, DialogActions, DialogContent, Fab, Button, Typography, LinearProgress, Alert, Snackbar, TextField } from '@mui/material'
+import { Box, Dialog, DialogActions, DialogContent, Fab, Button, Typography, LinearProgress, Alert, Snackbar, TextField, Input } from '@mui/material'
 import React from 'react'
 import { IoMdAdd } from 'react-icons/io'
 import { FcAddImage } from "react-icons/fc"
@@ -118,34 +118,32 @@ export default function FloatingActionButton() {
             <Fab
                 color="primary"
                 aria-label="fab_btn"
-                sx={{ position: 'fixed', bottom: 20, right: 20, zIndex: 1000000 }}
+                sx={{ position: 'fixed', bottom: 70, right: 20, zIndex: 1000000 }}
                 onClick={handleClickOpen}
             >
                 <IoMdAdd style={{ fontSize: 25 }} />
             </Fab>
             <Dialog open={open} onClose={handleClose}>
                 <DialogContent sx={{ p: 1 }}>
-                    <Box component="div" sx={{ minWidth: { xs: 250, sm: 580 }, minHeight: { xs: 200, sm: 350 }, display: 'grid', placeItems: "center", backgroundColor: "#BABABA" }}>
+                    <Box component="div" sx={{ minWidth: { xs: 250, sm: 580 }, minHeight: { xs: 200, sm: 350 }, display: 'grid', placeItems: "center", backgroundColor: "#BABABA", }}>
                         {
                             Preview ? <>
                                 <img src={Preview} width="100%" height="100%" alt="Image not Available" />
                             </> : <>
-                                <label htmlFor="inputFrm" style={{ display: 'grid', placeItems: 'center', color: "inherit" }}><FcAddImage style={{ fontSize: 30 }} />Select Image</label>
+                                <label htmlFor="inputFrm" style={{ display: 'grid', placeItems: 'center', color: "inherit" }}><FcAddImage style={{ fontSize: 50 }} />Select Image</label>
                                 <input type="file" name="" id="inputFrm" hidden accept='images/*' onChange={HanddleImage} /></>
                         }
 
                     </Box>
                     <Box sx={{ mt: 2 }}>
-                        <TextField
-                            label="Uploder Name"
+                        <Input
+                            placeholder='Author'
                             value={Author}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                                 setAuthor(event.target.value)
                             }}
                             required
                             fullWidth
-                            variant='filled'
-                            size='small'
                             autoComplete='true'
                         />
                     </Box>
