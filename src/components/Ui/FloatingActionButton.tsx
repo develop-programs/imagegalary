@@ -1,7 +1,7 @@
-import { Box, Dialog, DialogActions, DialogContent, Fab, Button, Typography, LinearProgress, Alert, Snackbar, Input } from '@mui/material'
+import { Box, Dialog, DialogActions, DialogContent, Fab, Button, Typography, Alert, Snackbar, Input, CircularProgress } from '@mui/material'
 import React from 'react'
 import { IoMdAdd } from 'react-icons/io'
-import { FcAddImage } from "react-icons/fc"
+import { BiUpload } from "react-icons/bi"
 import { MdFileUpload } from "react-icons/md"
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { StorageRef } from '../../services/Firebase/firebase'
@@ -123,48 +123,77 @@ export default function FloatingActionButton() {
             >
                 <IoMdAdd style={{ fontSize: 25 }} />
             </Fab>
-            <Dialog open={open} onClose={handleClose}>
-                <DialogContent sx={{ p: 1 }}>
-                    <Box component="div" sx={{ minWidth: { xs: 250, sm: 580 }, minHeight: { xs: 200, sm: 350 }, display: 'grid', placeItems: "center", backgroundColor: "#BABABA", }}>
-                        {
-                            Preview ? <>
-                                <img src={Preview} width="100%" height="100%" alt="Image not Available" />
-                            </> : <>
-                                <label htmlFor="inputFrm" style={{ display: 'grid', placeItems: 'center', color: "inherit" }}><FcAddImage style={{ fontSize: 50 }} />Select Image</label>
-                                <input type="file" name="" id="inputFrm" hidden accept='images/*' onChange={HanddleImage} /></>
-                        }
 
-                    </Box>
-                    <Box sx={{ mt: 2 }}>
-                        <Input
-                            placeholder='Author'
-                            value={Author}
-                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                                setAuthor(event.target.value)
-                            }}
-                            required
-                            fullWidth
-                            autoComplete='true'
-                        />
-                    </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center', overflow: "hidden" }}>
-                        <Box sx={{ flexGrow: 1, mr: 1 }}>
-                            <LinearProgress variant="determinate" value={Progress} />
-                        </Box>
-                        <Box>
-                            <Typography variant="body2" color="text.secondary">{`${Math.round(
-                                Progress
-                            )}%`}</Typography>
-                        </Box>
-                    </Box>
+            <Dialog open={open} onClose={handleClose}>
+                <DialogContent>
+                    {
+                        Progress ? <>
+                            <Box sx={{ minWidth: 550, minHeight: 200, display: "flex", flexDirection: "column", alignItems: 'center', justifyContent: "center", backgroundColor: "#76ff03", borderRadius: 2 }}>
+                                <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+                                    <CircularProgress variant="determinate" value={Progress} />
+                                    <Box
+                                        sx={{
+                                            top: 0,
+                                            left: 0,
+                                            bottom: 0,
+                                            right: 0,
+                                            position: 'absolute',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                        }}
+                                    >
+                                        <Typography
+                                            variant="caption"
+                                            component="div"
+                                            color="text.secondary"
+                                        >{`${Math.round(Progress)}%`}</Typography>
+                                    </Box>
+                                </Box>
+                                <Typography variant="body1" color="inherit">
+                                    Completed
+                                </Typography>
+                            </Box></> : <>
+                            <Box sx={{ minWidth: 550, minHeight: 200 }}>
+                                <Box sx={{ minWidth: 550, minHeight: 180, display: "grid", placeItems: "center", backgroundColor: '#ffb74d', borderRadius: 2 }}>
+                                    {
+                                        Preview ? <>
+                                            <img src={Preview} width="100%" height="100%" alt="" />
+                                        </>
+                                            :
+                                            <>
+                                                <label htmlFor="image_uploader" style={{
+                                                    display: "flex", alignItems: "center", flexDirection: 'column', fontWeight
+                                                        : 550
+                                                }}><BiUpload style={{ fontSize: 40 }} />Select File To Upload</label>
+                                                <input type="file" name="" hidden id="image_uploader" onChange={HanddleImage} />
+                                            </>
+                                    }
+                                </Box>
+                                <Box sx={{ mt: 1 }}>
+                                    <Input
+                                        placeholder='Author'
+                                        onChange={(Event: React.ChangeEvent<HTMLInputElement>) => {
+                                            setAuthor(Event.target.value)
+                                        }}
+                                        fullWidth
+                                        autoComplete='true'
+                                    />
+                                </Box>
+                            </Box>
+                            <Box sx={{ display: 'flex', flexGrow: 1 }}>
+                                <Button variant="contained" color="warning" sx={{ gap: 1, mt: 1, mx: "auto" }} onClick={() => { FileUpload(Image) }}>
+                                    <MdFileUpload style={{ fontSize: 30 }} />
+                                    Upload
+                                </Button>
+                            </Box>
+                        </>
+                    }
+
+
                 </DialogContent>
-                <DialogActions sx={{ margin: "auto" }}>
-                    <Button variant="outlined" color="inherit" sx={{ gap: 1, marginY: "auto" }} onClick={() => { FileUpload(Image) }}>
-                        <MdFileUpload style={{ fontSize: 30 }} />
-                        Upload
-                    </Button>
-                </DialogActions>
             </Dialog>
+
             <Snackbar open={SuccessOpen} autoHideDuration={2000} onClose={() => { setSuccess(!SuccessOpen) }}>
                 <Alert onClose={() => { setSuccess(!SuccessOpen) }} severity="success" >
                     {Message}

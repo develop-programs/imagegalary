@@ -24,12 +24,16 @@ interface DataTypes {
 export default function CardItems() {
     const dispatch = useDispatch<AppDispatch>()
     const Data = useSelector((state: any) => state.photo.data)
+    const openInNewTab = (url: any) => {
+        window.open(url, "_blank", "noreferrer");
+    };
     const [Message, setMessage] = React.useState<string>("")
     const [SuccessOpen, setSuccess] = React.useState<boolean>(false)
     const [ErrorOpen, setError] = React.useState<boolean>(false)
     const [InfoOpen, setInfo] = React.useState<boolean>(false)
 
     const DeleteFile = (params: DataTypes) => {
+        console.log(params);
         const desertRef = ref(StorageRef, `images/${params.Image}`);
         deleteObject(desertRef).then(async () => {
             axios.delete(`${import.meta.env.VITE_API_URL}/images/delete/${params._id}`).then(() => {
@@ -55,7 +59,9 @@ export default function CardItems() {
                     <Grid item xs={12} sm={6} lg={4} xl={3} key={idk} padding={2}>
                         <Box>
                             <Card sx={{ maxWidth: 450 }} elevation={5}>
-                                <CardMedia component="img" src={itm.URL} width={100} height={230} loading='lazy' />
+                                <CardMedia component="img" src={itm.URL} width={100} height={230} loading='lazy' onClick={() => {
+                                    openInNewTab(itm.URL)
+                                }} />
                                 <CardContent sx={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap" }}>
                                     <Typography variant="body1" color="inherit" component="div">
                                         by: {itm.Author}
