@@ -1,4 +1,4 @@
-import { Box, Dialog, DialogActions, DialogContent, Fab, Button, Typography, LinearProgress, Alert, Snackbar, TextField, Input } from '@mui/material'
+import { Box, Dialog, DialogActions, DialogContent, Fab, Button, Typography, LinearProgress, Alert, Snackbar, Input } from '@mui/material'
 import React from 'react'
 import { IoMdAdd } from 'react-icons/io'
 import { FcAddImage } from "react-icons/fc"
@@ -12,7 +12,7 @@ import { AppDispatch } from '../../services/Redux/Store'
 import { fetchProduct } from '../../services/Redux/Reducers/Photos'
 
 const metadata = {
-    contentType: 'image/jpeg'
+    contentType: 'image/jpeg/png'
 };
 
 
