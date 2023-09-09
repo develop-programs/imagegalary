@@ -14,7 +14,7 @@ export default function Photos() {
         dispatch(fetchProduct())
         setTimeout(() => {
             setLoading(false)
-        }, 6000)
+        }, 3000)
     }, [])
     return (
         <>
